@@ -1,0 +1,9 @@
+clients:
+  - name: "client1"
+    ip: "192.12.16.5"
+    password: "password"
+    username: "username"
+  - name: "client2"
+    ip: "102.12.16.6"
+    password: "password"
+    username: "username"

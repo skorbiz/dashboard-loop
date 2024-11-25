@@ -1,0 +1,12 @@
+[Unit]
+Description=Start the python program
+After=network.target
+StartLimitIntervalSec=0[Service]
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=centos
+ExecStart=/bin/bash -c 'cd /home/ubuntu/project/ && source env/bin/activate && python app.py'
+
+[Install]
+WantedBy=multi-user.target

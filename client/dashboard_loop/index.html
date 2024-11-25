@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>DTI Dashboard</title>
+
+	<link rel="stylesheet" href="reveljs/dist/reset.css">
+	<link rel="stylesheet" href="reveljs/dist/reveal.css">
+	<link rel="stylesheet" href="reveljs/dist/theme/black.css">
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="reveljs/plugin/highlight/monokai.css">
+
+	<script src="reveljs/plugin/fullscreen/plugin.js"></script> <!-- Not used, consider removing -->
+
+	<script>
+		// Update image dynamically in the cache to display the latest image
+		async function update_image_cache_all() {
+			var images = document.getElementsByTagName('img');
+			for (var i = 0; i < images.length; i++) {
+				if (images[i].getAttribute('data-src') != null)
+					update_image_cache(images[i].getAttribute('data-src'));
+			}
+		}
+
+		async function update_image_cache(url) {
+			await fetch(url, { cache: 'reload', mode: 'no-cors' })
+			document.body.querySelectorAll(`img[src='${url}']`)
+				.forEach(img => img.src = url)
+		}
+
+		async function my_refresh() {
+			// Stupid workaround to refresh the background image
+			// The go to next slide does not always work - but remoing the reveljs hash config
+			// makes the slide change to start when refreshed. So ....
+			if (Reveal.getCurrentSlide().hasAttribute("my_reload")) {
+				Reveal.next();
+				location.reload() // Rrefresh the page
+			}
+		}
+
+		// Refresh the page every 3 seconds
+		// setTimeout(() => {
+		// document.location.reload();
+		// }, 3000);
+
+	</script>
+
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section data-background-image="../sync_content/testb.png" data-background-size="contain">
+
+				data-background-repeat="contain">
+				data-background-size="contain"
+				data-background-size="contain"
+				data-background-size=" 100px"
+			</section>
+
+
+			<section data-background-image="../sync_content/test1.png" data-background-size="contain">
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section data-fullscreen="true">
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section>Slide 4
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section>Slide 5
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section>Slide 6
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section my_reload>Slide 7
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+			<section>Slide 8
+				<img data-src="../sync_content/test1.png">
+			</section>
+
+		</div>
+	</div>
+
+	<script src="reveljs/dist/reveal.js"></script>
+	<script src="reveljs/plugin/notes/notes.js"></script>
+	<script src="reveljs/plugin/markdown/markdown.js"></script>
+	<script src="reveljs/plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			// hash: true,
+			autoSlide: 5000,
+			autoSlideStoppable: false,
+			loop: true,
+			autoPlayMedia: true,
+			respondToHashChanges: true,
+			viewDistance: 1,
+			hideInactiveCursor: true,
+			hideCursorTime: 5000, // Time before the cursor is hidden (in ms)
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealFullscreen],
+
+		});
+
+		Reveal.on('slidechanged', update_image_cache_all);
+		Reveal.on('slidechanged', my_refresh);
+
+
+
+	</script>
+
+
+
+</body>
+
+</html>
